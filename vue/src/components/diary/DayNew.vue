@@ -1,0 +1,79 @@
+<template>
+  <div>
+    <Nav></Nav>
+    <mdb-container>
+      <mdb-card>
+        <mdb-view class="px-4 py-3 white-text" gradient="aqua">
+          <h2 class="card-header-title text-left">다이어리 기록</h2>
+          <p class="mb-0 text-left">{{ `${year}년 ${month}월 ${date}일` }}</p>
+        </mdb-view>
+        <mdb-card-body>
+          <mdb-row>
+              <mdb-col col="12" sm="6" lg="4"><PhotoUpload></PhotoUpload></mdb-col>
+              <mdb-col col="12" sm="6" lg="8" class="text-left">
+                  <section class="input">
+                    <mdb-input class="mb-2 mt-0">
+                      <span class="input-group-text md-addon" slot="prepend">운동 경과일</span>
+                      <span class="input-group-text md-addon" slot="append">일</span>
+                    </mdb-input>
+                    <mdb-input class="mb-2 mt-0">
+                      <span class="input-group-text md-addon" slot="prepend">목표 달성률</span>
+                      <span class="input-group-text md-addon" slot="append">%</span>
+                    </mdb-input>
+                    <mdb-input class="mb-2 mt-0">
+                      <span class="input-group-text md-addon" slot="prepend">체지방률</span>
+                      <span class="input-group-text md-addon" slot="append">%</span>
+                    </mdb-input>
+                    <mdb-input class="mb-2 mt-0">
+                      <span class="input-group-text md-addon" slot="prepend">체수분률</span>
+                      <span class="input-group-text md-addon" slot="append">%</span>
+                    </mdb-input>
+                    <mdb-input class="mb-2 mt-0">
+                      <span class="input-group-text md-addon" slot="prepend">근육량</span>
+                      <span class="input-group-text md-addon" slot="append">kg</span>
+                    </mdb-input>
+                    <mdb-input class="mb-2 mt-0">
+                      <span class="input-group-text md-addon" slot="prepend">골격근량</span>
+                      <span class="input-group-text md-addon" slot="append">kg</span>
+                    </mdb-input>
+                    <mdb-input type="textarea" label="소감" :rows="5" />
+                    <div class="text-right">
+                      <mdb-btn color="default">저장</mdb-btn>
+                      <mdb-btn color="warning">취소</mdb-btn>
+                    </div>
+                  </section>
+              </mdb-col>
+          </mdb-row>
+        </mdb-card-body>
+      </mdb-card>
+    </mdb-container>
+    <Footer></Footer>
+  </div>
+</template>
+
+<script>
+import Nav from '@/components/common/Nav.vue'
+import Footer from '@/components/common/Footer.vue'
+import PhotoUpload from '@/components/util/PhotoUpload.vue'
+import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, mdbInput, mdbNumericInput } from 'mdbvue'
+
+export default {
+  name: 'DayNew',
+  components: { Nav, Footer, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, mdbInput, mdbNumericInput, PhotoUpload },
+  computed: {
+    year () { return (new Date()).getUTCFullYear() },
+    month () { return (new Date()).getUTCMonth() + 1 },
+    date () { return (new Date()).getUTCDate() }
+  },
+  data () {
+    return {}
+  }
+}
+</script>
+
+<style scoped>
+section.preview {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+}
+</style>

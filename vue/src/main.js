@@ -1,7 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'bootstrap-css-only/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free/css/all.css'
 import 'mdbvue/build/css/mdb.css'
+import '@fullcalendar/core/main.css'
+import '@fullcalendar/daygrid/main.css'
+import '@fullcalendar/bootstrap/main.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'

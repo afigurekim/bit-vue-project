@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo-mdb-vue-small.png">
     <router-view/>
   </div>
 </template>
