@@ -4,7 +4,7 @@
     <mdb-container>
       <mdb-card>
         <mdb-view class="px-4 py-3 white-text" gradient="aqua">
-          <h2 class="card-header-title text-left">다이어리 기록</h2>
+          <h2 class="card-header-title text-left">다이어리 보기</h2>
           <p class="mb-0 text-left">{{ `${year}년 ${month}월 ${date}일` }}</p>
         </mdb-view>
         <mdb-card-body>
