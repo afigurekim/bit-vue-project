@@ -9,9 +9,7 @@
         </mdb-view>
         <mdb-card-body>
           <mdb-row>
-              <mdb-col col="12" sm="6" lg="4">
-                <img class="img-fluid rounded" alt="사용자 사진" :src="photo" />
-              </mdb-col>
+              <mdb-col col="12" sm="6" lg="4"><PhotoUpload></PhotoUpload></mdb-col>
               <mdb-col col="12" sm="6" lg="8" class="text-left">
                   <section class="input">
                     <mdb-input class="mb-2 mt-0" value="20">
