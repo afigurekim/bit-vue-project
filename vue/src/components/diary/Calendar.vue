@@ -29,25 +29,76 @@
 </template>
 
 <script>
-import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon } from 'mdbvue'
+import {
+  mdbContainer,
+  mdbRow,
+  mdbCol,
+  mdbCard,
+  mdbCardImage,
+  mdbCardHeader,
+  mdbCardBody,
+  mdbCardTitle,
+  mdbCardText,
+  mdbCardFooter,
+  mdbCardUp,
+  mdbCardAvatar,
+  mdbCardGroup,
+  mdbBtn,
+  mdbView,
+  mdbMask,
+  mdbIcon
+} from 'mdbvue'
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import interactionPlugin from '@fullcalendar/interaction'
+import axios from 'axios'
 export default {
   name: 'Calendar',
-  components: { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, FullCalendar },
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    mdbCard,
+    mdbCardImage,
+    mdbCardHeader,
+    mdbCardBody,
+    mdbCardTitle,
+    mdbCardText,
+    mdbCardFooter,
+    mdbCardUp,
+    mdbCardAvatar,
+    mdbCardGroup,
+    mdbBtn,
+    mdbView,
+    mdbMask,
+    mdbIcon,
+    FullCalendar
+  },
   data () {
-    return { calendarPlugins: [ dayGridPlugin, bootstrapPlugin, interactionPlugin ] }
+    return {
+      context: 'http://localhost:9000/diary',
+      calendarPlugins: [
+        dayGridPlugin,
+        bootstrapPlugin,
+        interactionPlugin
+      ]
+    }
   },
   methods: {
     handleDateClick (arg) {
-      this.$router.push({
-        name: 'DayNew',
-        params: {
-          newdate: arg.dateStr
-        }
-      })
+      axios.get(`${this.context}/exists/${arg.dateStr}`)
+        .then(res => {
+          this.$router.push({
+            name: `${res.data}`,
+            params: {
+              newdate: arg.dateStr
+            }
+          })
+        })
+        .catch(e => {
+          alert('ERROR')
+        })
     }
   }
 }

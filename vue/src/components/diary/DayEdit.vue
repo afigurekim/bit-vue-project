@@ -113,7 +113,7 @@ export default {
     }
   },
   methods: {
-    datesplit: function () {
+    dateSplit: function () {
       this.datearr = this.newdate.split('-')
       this.year = this.datearr[0]
       this.month = this.datearr[1]
@@ -137,7 +137,7 @@ export default {
     }
   },
   beforeMount () {
-    this.datesplit()
+    this.dateSplit()
   }
 }
 </script>

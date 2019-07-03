@@ -14,31 +14,31 @@
               </mdb-col>
               <mdb-col col="12" sm="6" lg="8" class="text-left" disabled>
                   <section class="input">
-                    <mdb-input class="mb-2 mt-0" disabled value="20">
+                    <mdb-input class="mb-2 mt-0" disabled v-model="diaryDays">
                       <span class="input-group-text md-addon" slot="prepend">운동 경과일</span>
                       <span class="input-group-text md-addon" slot="append">일</span>
                     </mdb-input>
-                    <mdb-input class="mb-2 mt-0" disabled value="30">
+                    <mdb-input class="mb-2 mt-0" disabled v-model="diaryGoal">
                       <span class="input-group-text md-addon" slot="prepend">목표 달성률</span>
                       <span class="input-group-text md-addon" slot="append">%</span>
                     </mdb-input>
-                    <mdb-input class="mb-2 mt-0" disabled value="20">
+                    <mdb-input class="mb-2 mt-0" disabled v-model="diaryFat">
                       <span class="input-group-text md-addon" slot="prepend">체지방률</span>
                       <span class="input-group-text md-addon" slot="append">%</span>
                     </mdb-input>
-                    <mdb-input class="mb-2 mt-0" disabled value="60">
+                    <mdb-input class="mb-2 mt-0" disabled v-model="diaryWater">
                       <span class="input-group-text md-addon" slot="prepend">체수분률</span>
                       <span class="input-group-text md-addon" slot="append">%</span>
                     </mdb-input>
-                    <mdb-input class="mb-2 mt-0" disabled value="19.5">
+                    <mdb-input class="mb-2 mt-0" disabled v-model="diaryMuscle">
                       <span class="input-group-text md-addon" slot="prepend">근육량</span>
                       <span class="input-group-text md-addon" slot="append">kg</span>
                     </mdb-input>
-                    <mdb-input class="mb-2 mt-0" disabled value="22.5">
+                    <mdb-input class="mb-2 mt-0" disabled v-model="diarySkeletal">
                       <span class="input-group-text md-addon" slot="prepend">골격근량</span>
                       <span class="input-group-text md-addon" slot="append">kg</span>
                     </mdb-input>
-                    <mdb-input type="textarea" label="소감" value="얼음이 있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에 속잎나고 가지에 싹이 트고 꽃 피고 새 우는 봄날의 천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서 불러 내는 것이 따뜻한" disabled :rows="5" />
+                    <mdb-input type="textarea" label="소감" v-model="diaryComment" readonly :rows="10" />
                     <div class="text-right">
                       <mdb-btn color="default" @click="handleEditClick">수정</mdb-btn>
                       <mdb-btn color="danger" @click="handleDeleteClick">삭제</mdb-btn>
@@ -57,7 +57,7 @@
 <script>
 import Nav from '@/components/common/Nav.vue'
 import Footer from '@/components/common/Footer.vue'
-import PhotoUpload from '@/components/util/PhotoUpload.vue'
+import axios from 'axios'
 import {
   mdbContainer,
   mdbRow,
@@ -103,25 +103,51 @@ export default {
     mdbMask,
     mdbIcon,
     mdbInput,
-    mdbNumericInput,
-    PhotoUpload
+    mdbNumericInput
   },
   data () {
     return {
+      context: 'http://localhost:9000/diary',
       newdate: this.$route.params.newdate,
       datearr: '',
       year: '',
       month: '',
       date: '',
+      diaryDate: '',
+      diaryPhoto: '',
+      diaryDays: '',
+      diaryGoal: '',
+      diaryFat: '',
+      diaryWater: '',
+      diaryMuscle: '',
+      diarySkeletal: '',
+      diaryComment: '',
       photo: require('@/assets/diary_01.jpg')
     }
   },
   methods: {
-    datesplit: function () {
+    dateSplit () {
       this.datearr = this.newdate.split('-')
       this.year = this.datearr[0]
       this.month = this.datearr[1]
       this.date = this.datearr[2]
+    },
+    read () {
+      axios.get(`${this.context}/find/${this.newdate}`)
+        .then(res => {
+          this.diaryDate = `${res.data.diaryDate}`
+          this.diaryPhoto = `${res.data.diaryPhoto}`
+          this.diaryDays = `${res.data.diaryDays}`
+          this.diaryGoal = `${res.data.diaryGoal}`
+          this.diaryFat = `${res.data.diaryFat}`
+          this.diaryWater = `${res.data.diaryWater}`
+          this.diaryMuscle = `${res.data.diaryMuscle}`
+          this.diarySkeletal = `${res.data.diarySkeletal}`
+          this.diaryComment = `${res.data.diaryComment}`
+        })
+        .catch(e => {
+          alert('ERROR')
+        })
     },
     handleEditClick () {
       this.$router.push({
@@ -143,7 +169,8 @@ export default {
     }
   },
   beforeMount () {
-    this.datesplit()
+    this.dateSplit()
+    this.read()
   }
 }
 </script>
