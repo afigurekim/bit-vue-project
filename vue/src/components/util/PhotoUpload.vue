@@ -1,20 +1,42 @@
 <template>
-  <div id="PhotoUpload">
-    <upload-image url=""></upload-image>
-  </div>
+  <picture-input
+    ref="pictureInput"
+    width="300"
+    height="400"
+    margin="0"
+    radius="5"
+    accept="image/jpeg,image/png"
+    size="10"
+    button-class="btn"
+    :custom-strings="{
+      upload: '사진 업로드를<br>지원하지 않는<br>기기입니다',
+      drag: '사진을 여기에<br>드래그 해주세요<br>(3MB 이내 .jpg, .png)'
+    }"
+    @change="onChange">
+  </picture-input>
 </template>
 
 <script>
-import UploadImage from 'vue-upload-image'
+import PictureInput from 'vue-picture-input'
 export default {
   name: 'PhotoUpload',
-  data: function () {
-    return {}
-  },
-  methods: {
+  data () {
+    return {
+    }
   },
   components: {
-    UploadImage
+    PictureInput
+  },
+  methods: {
+    onChange (image) {
+      console.log('New picture selected!')
+      if (image) {
+        console.log('Picture loaded.')
+        this.image = image
+      } else {
+        console.log('FileReader API not supported: use the <form>, Luke!')
+      }
+    }
   }
 }
 </script>

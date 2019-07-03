@@ -40,9 +40,9 @@
                     </mdb-input>
                     <mdb-input type="textarea" label="소감" value="얼음이 있을 뿐이다 그들에게 생명을 불어 넣는 것은 따뜻한 봄바람이다 풀밭에 속잎나고 가지에 싹이 트고 꽃 피고 새 우는 봄날의 천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서 불러 내는 것이 따뜻한" disabled :rows="5" />
                     <div class="text-right">
-                      <mdb-btn color="default">수정</mdb-btn>
-                      <mdb-btn color="danger">삭제</mdb-btn>
-                      <mdb-btn color="primary">돌아가기</mdb-btn>
+                      <mdb-btn color="default" @click="handleEditClick">수정</mdb-btn>
+                      <mdb-btn color="danger" @click="handleDeleteClick">삭제</mdb-btn>
+                      <mdb-btn color="primary" @click="handleReturnClick">돌아가기</mdb-btn>
                     </div>
                   </section>
               </mdb-col>
@@ -58,18 +58,92 @@
 import Nav from '@/components/common/Nav.vue'
 import Footer from '@/components/common/Footer.vue'
 import PhotoUpload from '@/components/util/PhotoUpload.vue'
-import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, mdbInput, mdbNumericInput } from 'mdbvue'
+import {
+  mdbContainer,
+  mdbRow,
+  mdbCol,
+  mdbCard,
+  mdbCardImage,
+  mdbCardHeader,
+  mdbCardBody,
+  mdbCardTitle,
+  mdbCardText,
+  mdbCardFooter,
+  mdbCardUp,
+  mdbCardAvatar,
+  mdbCardGroup,
+  mdbBtn,
+  mdbView,
+  mdbMask,
+  mdbIcon,
+  mdbInput,
+  mdbNumericInput
+} from 'mdbvue'
 
 export default {
   name: 'DayView',
-  components: { Nav, Footer, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, mdbInput, mdbNumericInput, PhotoUpload },
-  computed: {
-    year () { return (new Date()).getUTCFullYear() },
-    month () { return (new Date()).getUTCMonth() + 1 },
-    date () { return (new Date()).getUTCDate() }
+  components: {
+    Nav,
+    Footer,
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    mdbCard,
+    mdbCardImage,
+    mdbCardHeader,
+    mdbCardBody,
+    mdbCardTitle,
+    mdbCardText,
+    mdbCardFooter,
+    mdbCardUp,
+    mdbCardAvatar,
+    mdbCardGroup,
+    mdbBtn,
+    mdbView,
+    mdbMask,
+    mdbIcon,
+    mdbInput,
+    mdbNumericInput,
+    PhotoUpload
   },
   data () {
-    return { photo: require('@/assets/diary_01.jpg') }
+    return {
+      newdate: this.$route.params.newdate,
+      datearr: '',
+      year: '',
+      month: '',
+      date: '',
+      photo: require('@/assets/diary_01.jpg')
+    }
+  },
+  methods: {
+    datesplit: function () {
+      this.datearr = this.newdate.split('-')
+      this.year = this.datearr[0]
+      this.month = this.datearr[1]
+      this.date = this.datearr[2]
+    },
+    handleEditClick () {
+      this.$router.push({
+        name: 'DayEdit',
+        params: {
+          newdate: this.newdate
+        }
+      })
+    },
+    handleDeleteClick () {
+      this.$router.push({
+        name: 'Home'
+      })
+    },
+    handleReturnClick () {
+      this.$router.push({
+        name: 'Home'
+      })
+    }
+  },
+  beforeMount () {
+    this.datesplit()
   }
 }
 </script>

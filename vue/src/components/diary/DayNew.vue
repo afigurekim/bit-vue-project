@@ -38,8 +38,8 @@
                     </mdb-input>
                     <mdb-input type="textarea" label="소감" :rows="5" />
                     <div class="text-right">
-                      <mdb-btn color="default">저장</mdb-btn>
-                      <mdb-btn color="warning">취소</mdb-btn>
+                      <mdb-btn color="default" @click="handleSaveClick">저장</mdb-btn>
+                      <mdb-btn color="warning" @click="handleCancelClick">취소</mdb-btn>
                     </div>
                   </section>
               </mdb-col>
@@ -55,18 +55,86 @@
 import Nav from '@/components/common/Nav.vue'
 import Footer from '@/components/common/Footer.vue'
 import PhotoUpload from '@/components/util/PhotoUpload.vue'
-import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, mdbInput, mdbNumericInput } from 'mdbvue'
+import {
+  mdbContainer,
+  mdbRow,
+  mdbCol,
+  mdbCard,
+  mdbCardImage,
+  mdbCardHeader,
+  mdbCardBody,
+  mdbCardTitle,
+  mdbCardText,
+  mdbCardFooter,
+  mdbCardUp,
+  mdbCardAvatar,
+  mdbCardGroup,
+  mdbBtn,
+  mdbView,
+  mdbMask,
+  mdbIcon,
+  mdbInput,
+  mdbNumericInput
+} from 'mdbvue'
 
 export default {
   name: 'DayNew',
-  components: { Nav, Footer, mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, mdbInput, mdbNumericInput, PhotoUpload },
-  computed: {
-    year () { return (new Date()).getUTCFullYear() },
-    month () { return (new Date()).getUTCMonth() + 1 },
-    date () { return (new Date()).getUTCDate() }
+  components: {
+    Nav,
+    Footer,
+    mdbContainer,
+    mdbRow,
+    mdbCol,
+    mdbCard,
+    mdbCardImage,
+    mdbCardHeader,
+    mdbCardBody,
+    mdbCardTitle,
+    mdbCardText,
+    mdbCardFooter,
+    mdbCardUp,
+    mdbCardAvatar,
+    mdbCardGroup,
+    mdbBtn,
+    mdbView,
+    mdbMask,
+    mdbIcon,
+    mdbInput,
+    mdbNumericInput,
+    PhotoUpload
   },
   data () {
-    return {}
+    return {
+      newdate: this.$route.params.newdate,
+      datearr: '',
+      year: '',
+      month: '',
+      date: ''
+    }
+  },
+  methods: {
+    datesplit: function () {
+      this.datearr = this.newdate.split('-')
+      this.year = this.datearr[0]
+      this.month = this.datearr[1]
+      this.date = this.datearr[2]
+    },
+    handleSaveClick () {
+      this.$router.push({
+        name: 'DayView',
+        params: {
+          newdate: this.newdate
+        }
+      })
+    },
+    handleCancelClick () {
+      this.$router.push({
+        name: 'Home'
+      })
+    }
+  },
+  beforeMount () {
+    this.datesplit()
   }
 }
 </script>

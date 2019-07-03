@@ -18,9 +18,9 @@ export default new Router({
     { path: '/nav', name: 'Nav', compontnet: Nav },
     { path: '/footer', name: 'Footer', component: Footer },
     { path: '/calendar', name: 'Calendar', component: Calendar },
-    { path: '/daynew', name: 'DayNew', component: DayNew },
-    { path: '/dayedit', name: 'DayEdit', component: DayEdit },
-    { path: '/dayview', name: 'DayView', component: DayView },
+    { path: '/daynew/:newdate', name: 'DayNew', component: DayNew },
+    { path: '/dayedit/:newdate', name: 'DayEdit', component: DayEdit },
+    { path: '/dayview/:newdate', name: 'DayView', component: DayView },
     { path: '/photoupload', name: 'PhotoUpload', component: PhotoUpload }
   ]
 })

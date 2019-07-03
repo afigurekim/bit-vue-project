@@ -9,6 +9,7 @@
           </mdb-view>
           <mdb-card-body>
             <FullCalendar
+              @dateClick="handleDateClick"
               defaultView="dayGridMonth"
               themeSystem="bootstrap"
               locale="ko"
@@ -32,11 +33,22 @@ import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdb
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
+import interactionPlugin from '@fullcalendar/interaction'
 export default {
   name: 'Calendar',
   components: { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardImage, mdbCardHeader, mdbCardBody, mdbCardTitle, mdbCardText, mdbCardFooter, mdbCardUp, mdbCardAvatar, mdbCardGroup, mdbBtn, mdbView, mdbMask, mdbIcon, FullCalendar },
   data () {
-    return { calendarPlugins: [dayGridPlugin, bootstrapPlugin] }
+    return { calendarPlugins: [ dayGridPlugin, bootstrapPlugin, interactionPlugin ] }
+  },
+  methods: {
+    handleDateClick (arg) {
+      this.$router.push({
+        name: 'DayNew',
+        params: {
+          newdate: arg.dateStr
+        }
+      })
+    }
   }
 }
 </script>
