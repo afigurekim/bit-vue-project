@@ -13,11 +13,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Getter
+@Setter
 @ToString
 @Table(name = "diary")
 public class Diary implements Serializable {

@@ -9,7 +9,9 @@
         </mdb-view>
         <mdb-card-body>
           <mdb-row>
-              <mdb-col col="12" sm="6" lg="4"><PhotoUpload></PhotoUpload></mdb-col>
+              <mdb-col col="12" sm="6" lg="4">
+                <img class="img-fluid rounded" alt="사용자 사진" :src="photo" />
+              </mdb-col>
               <mdb-col col="12" sm="6" lg="8" class="text-left">
                   <section class="input">
                     <mdb-input class="mb-2 mt-0" v-model="diaryDays" placeholder="숫자만 입력해주세요">
@@ -55,7 +57,7 @@
 import Nav from '@/components/common/Nav.vue'
 import Footer from '@/components/common/Footer.vue'
 import axios from 'axios'
-import PhotoUpload from '@/components/util/PhotoUpload.vue'
+// import PhotoUpload from '@/components/util/PhotoUpload.vue'
 import {
   mdbContainer,
   mdbRow,
@@ -101,8 +103,7 @@ export default {
     mdbMask,
     mdbIcon,
     mdbInput,
-    mdbNumericInput,
-    PhotoUpload
+    mdbNumericInput
   },
   data () {
     return {
@@ -113,14 +114,14 @@ export default {
       month: '',
       date: '',
       diaryDate: '',
-      diaryPhoto: '',
       diaryDays: '',
       diaryGoal: '',
       diaryFat: '',
       diaryWater: '',
       diaryMuscle: '',
       diarySkeletal: '',
-      diaryComment: ''
+      diaryComment: '',
+      photo: require('@/assets/diary_01.jpg')
     }
   },
   methods: {
@@ -130,34 +131,9 @@ export default {
       this.month = this.datearr[1]
       this.date = this.datearr[2]
     },
-/*     write () {
-      let data = {
-        diaryDate: this.diaryDate,
-        diaryDays: this.diaryDays,
-        diaryGoal: this.diaryGoal,
-        diaryFat: this.diaryFat,
-        diaryWater: this.diaryWater,
-        diaryMuscle: this.diaryMuscle,
-        diarySkeletal: this.diarySkeletal,
-        diaryComment: this.diaryComment
-      }
-      let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'JWT fefege..'
-      }
-      axios.post(`${this.context}`,
-        JSON.stringify(data),
-        { headers : headers })
-        .then(() => {
-          alert('SUCCESS: WRITE')
-        })
-        .catch(e => {
-          alert('ERROR')
-        })
-    }, */
     handleSaveClick () {
       let data = {
-        diaryDate: this.diaryDate,
+        diaryDate: this.newdate,
         diaryDays: this.diaryDays,
         diaryGoal: this.diaryGoal,
         diaryFat: this.diaryFat,
@@ -174,17 +150,20 @@ export default {
         JSON.stringify(data),
         { headers: headers })
         .then(() => {
-          alert('SUCCESS: WRITE')
+          alert(`${this.newdate} 일기가 등록되었습니다.`)
+          this.$router.push({
+            name: 'DayView',
+            params: {
+              newdate: this.newdate
+            }
+          })
         })
         .catch(e => {
           alert('ERROR')
+          this.$router.push({
+            name: 'Home'
+          })
         })
-      this.$router.push({
-        name: 'DayView',
-        params: {
-          newdate: this.newdate
-        }
-      })
     },
     handleCancelClick () {
       this.$router.push({

@@ -114,7 +114,6 @@ export default {
       month: '',
       date: '',
       diaryDate: '',
-      diaryPhoto: '',
       diaryDays: '',
       diaryGoal: '',
       diaryFat: '',
@@ -136,7 +135,6 @@ export default {
       axios.get(`${this.context}/find/${this.newdate}`)
         .then(res => {
           this.diaryDate = `${res.data.diaryDate}`
-          this.diaryPhoto = `${res.data.diaryPhoto}`
           this.diaryDays = `${res.data.diaryDays}`
           this.diaryGoal = `${res.data.diaryGoal}`
           this.diaryFat = `${res.data.diaryFat}`
@@ -147,6 +145,9 @@ export default {
         })
         .catch(e => {
           alert('ERROR')
+          this.$router.push({
+            name: 'Home'
+          })
         })
     },
     handleEditClick () {
@@ -158,9 +159,21 @@ export default {
       })
     },
     handleDeleteClick () {
-      this.$router.push({
-        name: 'Home'
-      })
+      if (confirm(`${this.newdate} 일기를 삭제하시겠습니까?\n(확인: 삭제, 취소: 돌아가기)`)) {
+        axios.delete(`${this.context}/delete/${this.newdate}`)
+          .then(() => {
+            alert(`${this.newdate} 일기가 삭제되었습니다.`)
+            this.$router.push({
+              name: 'Home'
+            })
+          })
+          .catch(e => {
+            alert('ERROR')
+            this.$router.push({
+              name: 'Home'
+            })
+          })
+      }
     },
     handleReturnClick () {
       this.$router.push({
