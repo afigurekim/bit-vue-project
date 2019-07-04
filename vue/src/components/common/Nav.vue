@@ -8,9 +8,6 @@
     <mdb-navbar-toggler>
       <mdb-navbar-nav>
         <mdb-nav-item href="/" waves-fixed class="active">다이어리</mdb-nav-item>
-        <mdb-nav-item href="/daynew" waves-fixed>작성</mdb-nav-item>
-        <mdb-nav-item href="/dayview" waves-fixed>조회</mdb-nav-item>
-        <mdb-nav-item href="/dayedit" waves-fixed>수정</mdb-nav-item>
       </mdb-navbar-nav>
     </mdb-navbar-toggler>
   </mdb-navbar>

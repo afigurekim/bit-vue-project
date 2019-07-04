@@ -12,15 +12,6 @@
             <li class="list-unstyled">
               <a href="/">다이어리</a>
             </li>
-            <li class="list-unstyled">
-              <a href="/daynew">작성</a>
-            </li>
-            <li class="list-unstyled">
-              <a href="/dayview">조회</a>
-            </li>
-            <li class="list-unstyled">
-              <a href="/dayedit">수정</a>
-            </li>
           </ul>
         </mdb-col>
       </mdb-row>
