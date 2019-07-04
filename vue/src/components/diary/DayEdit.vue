@@ -145,6 +145,9 @@ export default {
         })
         .catch(e => {
           alert('ERROR')
+          this.$router.push({
+            name: 'Home'
+          })
         })
     },
     handleSaveClick () {
