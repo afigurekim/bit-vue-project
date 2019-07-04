@@ -1,7 +1,5 @@
 package com.fourward.urcoach.controller;
 
-import java.util.HashMap;
-
 import com.fourward.urcoach.domain.DiaryDTO;
 import com.fourward.urcoach.entities.Diary;
 import com.fourward.urcoach.repositories.DiaryRepository;
